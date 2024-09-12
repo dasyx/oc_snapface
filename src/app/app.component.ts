@@ -1,11 +1,26 @@
-import { Component } from "@angular/core";
-import { FaceSnapComponent } from "./face-snap/face-snap.component";
+import { Component, OnInit } from "@angular/core";
+import { FaceSnapComponent } from "./face-snap/face-snap.component"; // Importe le composant FaceSnapComponent pour être utilisé dans ce composant parent
+import { FaceSnap } from "./models/face-snap"; // Importe le modèle FaceSnap qui contient les propriétés du "FaceSnap"
 
 @Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [FaceSnapComponent],
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.scss",
+  selector: "app-root", // Déclare le sélecteur pour ce composant, utilisé dans le fichier index.html ou autre template parent
+  standalone: true, // Indique que ce composant est autonome et n'a pas de dépendances supplémentaires
+  imports: [FaceSnapComponent], // Indique que le composant FaceSnapComponent est utilisé dans ce composant parent
+  templateUrl: "./app.component.html", // Lien vers le template HTML associé à ce composant
+  styleUrl: "./app.component.scss", // Lien vers le fichier de style SCSS associé à ce composant
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  mySnap!: FaceSnap; // Déclare une propriété mySnap de type FaceSnap, initialement non définie
+
+  // Hook du cycle de vie Angular, appelé lors de l'initialisation du composant
+  ngOnInit(): void {
+    // Initialisation de l'objet FaceSnap avec des valeurs spécifiques
+    this.mySnap = new FaceSnap(
+      "Face Snap", // Titre du snap
+      "A simple face snap app", // Description du snap
+      "https://picsum.photos/200/300", // URL de l'image à afficher pour ce snap
+      new Date(), // Date actuelle lors de l'initialisation du snap
+      0 // Nombre initial de snaps (commence à zéro)
+    );
+  }
+}

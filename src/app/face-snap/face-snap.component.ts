@@ -1,47 +1,58 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { FaceSnap } from "../models/face-snap";
 
 @Component({
-  selector: "app-face-snap",
-  standalone: true,
-  imports: [],
-  templateUrl: "./face-snap.component.html",
-  styleUrl: "./face-snap.component.scss",
+  selector: "app-face-snap", // Déclare le sélecteur pour le composant, utilisé dans le template HTML parent
+  standalone: true, // Indique que le composant est autonome, sans dépendances externes dans ce contexte
+  imports: [], // Pas d'importations supplémentaires nécessaires ici (peut être utilisé pour des modules partagés)
+  templateUrl: "./face-snap.component.html", // Lien vers le fichier de template HTML du composant
+  styleUrl: "./face-snap.component.scss", // Lien vers le fichier de style SCSS du composant
 })
 export class FaceSnapComponent implements OnInit {
-  title!: string;
-  description!: string;
-  createdAt!: Date;
-  snaps!: number;
-  imageUrl!: string;
-  snapText!: string;
-  isSnapped!: boolean;
+  @Input() faceSnap!: FaceSnap; // Déclare une propriété d'entrée qui recevra une instance de FaceSnap depuis le parent
 
+  snapText!: string; // Variable pour stocker le texte du bouton "Snap" ou "Unsnap"
+  isSnapped!: boolean; // Booléen pour vérifier si l'utilisateur a déjà "snappé" cet élément
+
+  // Le hook OnInit est déclenché une fois que le composant est initialisé
   ngOnInit(): void {
-    this.title = "Face Snap";
-    this.description = "A simple face snap app";
-    this.createdAt = new Date();
-    this.imageUrl = "https://picsum.photos/200/300";
-    this.snaps = 0;
-    this.snapText = "Snap Me";
-    this.isSnapped = false;
+    this.snapText = "Snap Me"; // Initialisation du texte du bouton
+    this.isSnapped = false; // Indique que l'utilisateur n'a pas encore "snappé" l'élément
   }
 
+  // Fonction déclenchée lors du clic sur le bouton "Snap"
   onSnap(): void {
-    if (this.snaps === 0) {
-      this.snaps++;
-      this.snapText = "Unsnap Me";
-      this.isSnapped = true;
+    if (!this.isSnapped) {
+      // Si l'élément n'a pas encore été "snappé", on incrémente le compteur de snaps
+      this.snap(); // Appelle la fonction snap() pour incrémenter le compteur et mettre à jour le texte du bouton
     } else {
-      this.snaps--;
-      this.snapText = "Snap Me";
-      this.isSnapped = false;
+      // Si l'élément a déjà été "snappé", on décrémente le compteur
+      this.unSnap(); // Appelle la fonction unSnap() pour décrémenter le compteur et mettre à jour le texte du bouton
     }
   }
-  /* onSnapMinus(): number {
-    if (this.snaps > 0) {
-      return this.snaps--;
+  unSnap(): void {
+    if (this.isSnapped) {
+      // Si l'élément a déjà été "snappé", on décrémente le compteur
+      this.faceSnap.removeSnap(); // Diminue le nombre de "snaps" dans l'objet FaceSnap
+      this.snapText = "Snap Me"; // Restaure le texte initial du bouton
+      this.isSnapped = false; // Repasse l'état à "non-snappé" pour permettre un nouveau "snap"
+    }
+  }
+  snap(): void {
+    if (!this.isSnapped) {
+      // Si l'élément n'a pas encore été "snappé", on incrémente le compteur de snaps
+      this.faceSnap.addSnap(); // Augmente le nombre de "snaps" dans l'objet FaceSnap
+      this.snapText = "Unsnap Me"; // Change le texte du bouton pour indiquer que l'utilisateur peut "désnappé"
+      this.isSnapped = true; // Passe l'état à "snappé" pour éviter une nouvelle incrémentation immédiate
+    }
+  }
+
+  /* Fonction alternative qui pourrait être utilisée pour décrémenter manuellement les snaps, si nécessaire
+  onSnapMinus(): number {
+    if (this.snaps > 0) { // Vérifie si le nombre de snaps est supérieur à 0
+      return this.snaps--; // Décrémente si c'est le cas
     } else {
-      return this.snaps;
+      return this.snaps; // Retourne simplement la valeur si elle est déjà à 0
     }
   } */
 }

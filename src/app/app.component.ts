@@ -11,6 +11,7 @@ import { FaceSnap } from "./models/face-snap"; // Importe le modèle FaceSnap qu
 })
 export class AppComponent implements OnInit {
   mySnap!: FaceSnap; // Déclare une propriété mySnap de type FaceSnap, initialement non définie
+  myOtherSnap!: FaceSnap; // Déclare une autre propriété myOtherSnap de type FaceSnap, initialement non définie
 
   // Hook du cycle de vie Angular, appelé lors de l'initialisation du composant
   ngOnInit(): void {
@@ -21,6 +22,13 @@ export class AppComponent implements OnInit {
       "https://picsum.photos/200/300", // URL de l'image à afficher pour ce snap
       new Date(), // Date actuelle lors de l'initialisation du snap
       0 // Nombre initial de snaps (commence à zéro)
+    );
+    this.myOtherSnap = new FaceSnap(
+      "Another Snap", // Titre du snap
+      "Another simple face snap app", // Description du snap
+      "https://picsum.photos/200/300", // URL de l'image à afficher pour ce snap
+      new Date(), // Date actuelle lors de l'initialisation du snap
+      2 // Nombre initial de snaps (commence à zéro)
     );
   }
 }

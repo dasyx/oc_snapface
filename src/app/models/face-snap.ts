@@ -1,4 +1,6 @@
 export class FaceSnap {
+  location?: string; // Le point d'interrogation indique que cette propriété est facultative
+
   // Le constructeur de la classe FaceSnap permet d'initialiser une instance avec les propriétés suivantes :
   constructor(
     public title: string, // Le titre du "snap", par exemple le nom ou le sujet du FaceSnap
@@ -18,4 +20,9 @@ export class FaceSnap {
       this.snaps--; // Décrémente le nombre de "snaps" si c'est le cas
     }
   }
+
+  setLocation(location: string): void {
+    this.location = location; // Définit la propriété location du FaceSnap
+  }
+  // On cherche à centraliser la logique de gestion des "snaps" dans la classe FaceSnap, pour éviter de la répéter dans d'autres composants.
 }

@@ -10,25 +10,38 @@ import { FaceSnap } from "./models/face-snap"; // Importe le modèle FaceSnap qu
   styleUrl: "./app.component.scss", // Lien vers le fichier de style SCSS associé à ce composant
 })
 export class AppComponent implements OnInit {
+  faceSnaps!: FaceSnap[]; // Déclare une propriété faceSnaps de type tableau de FaceSnap, initialement vide
+
   mySnap!: FaceSnap; // Déclare une propriété mySnap de type FaceSnap, initialement non définie
   myOtherSnap!: FaceSnap; // Déclare une autre propriété myOtherSnap de type FaceSnap, initialement non définie
 
   // Hook du cycle de vie Angular, appelé lors de l'initialisation du composant
   ngOnInit(): void {
-    // Initialisation de l'objet FaceSnap avec des valeurs spécifiques
-    this.mySnap = new FaceSnap(
-      "Face Snap", // Titre du snap
-      "A simple face snap app", // Description du snap
-      "https://picsum.photos/200/300", // URL de l'image à afficher pour ce snap
-      new Date(), // Date actuelle lors de l'initialisation du snap
-      0 // Nombre initial de snaps (commence à zéro)
-    );
-    this.myOtherSnap = new FaceSnap(
-      "Another Snap", // Titre du snap
-      "Another simple face snap app", // Description du snap
-      "https://picsum.photos/200/300", // URL de l'image à afficher pour ce snap
-      new Date(), // Date actuelle lors de l'initialisation du snap
-      2 // Nombre initial de snaps (commence à zéro)
-    );
+    this.faceSnaps = [
+      new FaceSnap(
+        "Face Snap", // Titre du snap
+        "A simple face snap app", // Description du snap
+        "https://picsum.photos/300/300", // URL de l'image à afficher pour ce snap
+        new Date(), // Date actuelle lors de l'initialisation du snap
+        0 // Nombre initial de snaps (commence à zéro)
+      ),
+      new FaceSnap(
+        "Another Snap", // Titre du snap
+        "Another simple face snap app", // Description du snap
+        "https://picsum.photos/300/300", // URL de l'image à afficher pour ce snap
+        new Date(), // Date actuelle lors de l'initialisation du snap
+        2 // Nombre initial de snaps (commence à zéro)
+      ),
+      new FaceSnap(
+        "Yet Another Snap", // Titre du snap
+        "Yet another simple face snap app", // Description du snap
+        "https://picsum.photos/300/300", // URL de l'image à afficher pour ce snap
+        new Date(), // Date actuelle lors de l'initialisation du snap
+        1 // Nombre initial de snaps (commence à zéro)
+      ),
+    ];
+    this.faceSnaps[0].setLocation("à la montagne"); // Définit la propriété location du FaceSnap
+    // On va afficher cette localisation mais uniquement si elle est définie (location est facultatif, avec le signe "?")
+    // Voir dans le composant enfant FaceSnapComponent (face-snap.component.ts) comment afficher cette localisation
   }
 }

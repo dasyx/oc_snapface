@@ -9,7 +9,7 @@ import { FaceSnap } from "../models/face-snap";
   styleUrl: "./face-snap.component.scss", // Lien vers le fichier de style SCSS du composant
 })
 export class FaceSnapComponent implements OnInit {
-  @Input() faceSnap!: FaceSnap; // Déclare une propriété d'entrée qui recevra une instance de FaceSnap depuis le parent
+  @Input() faceSnap!: FaceSnap; // Le décorateur "Input" déclare une propriété d'entrée qui recevra une instance de FaceSnap depuis le parent
 
   snapText!: string; // Variable pour stocker le texte du bouton "Snap" ou "Unsnap"
   isSnapped!: boolean; // Booléen pour vérifier si l'utilisateur a déjà "snappé" cet élément

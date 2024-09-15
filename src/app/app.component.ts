@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
         "Another simple face snap app", // Description du snap
         "https://picsum.photos/300/300", // URL de l'image à afficher pour ce snap
         new Date(), // Date actuelle lors de l'initialisation du snap
-        2 // Nombre initial de snaps (commence à zéro)
+        120 // Nombre initial de snaps (commence à zéro)
       ),
       new FaceSnap(
         "Yet Another Snap", // Titre du snap

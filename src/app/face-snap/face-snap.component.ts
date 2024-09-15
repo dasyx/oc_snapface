@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FaceSnap } from "../models/face-snap";
-import { NgStyle } from "@angular/common";
+import { NgClass, NgStyle } from "@angular/common";
 
 @Component({
   selector: "app-face-snap", // Déclare le sélecteur pour le composant, utilisé dans le template HTML parent
   standalone: true, // Indique que le composant est autonome, sans dépendances externes dans ce contexte
-  imports: [NgStyle], // Importe le module NgStyle pour gérer les styles dynamiques
+  imports: [NgStyle, NgClass], // Importe le module NgStyle pour gérer les styles dynamiques
   templateUrl: "./face-snap.component.html", // Lien vers le fichier de template HTML du composant
   styleUrl: "./face-snap.component.scss", // Lien vers le fichier de style SCSS du composant
 })

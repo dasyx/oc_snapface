@@ -1,11 +1,25 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FaceSnap } from "../models/face-snap";
-import { NgClass, NgStyle } from "@angular/common";
+import {
+  DatePipe,
+  NgClass,
+  NgStyle,
+  TitleCasePipe,
+  UpperCasePipe,
+  DecimalPipe,
+} from "@angular/common";
 
 @Component({
   selector: "app-face-snap", // Déclare le sélecteur pour le composant, utilisé dans le template HTML parent
   standalone: true, // Indique que le composant est autonome, sans dépendances externes dans ce contexte
-  imports: [NgStyle, NgClass], // Importe le module NgStyle pour gérer les styles dynamiques
+  imports: [
+    NgStyle,
+    NgClass,
+    UpperCasePipe,
+    TitleCasePipe,
+    DatePipe,
+    DecimalPipe,
+  ], // Importe le module NgStyle pour gérer les styles dynamiques
   templateUrl: "./face-snap.component.html", // Lien vers le fichier de template HTML du composant
   styleUrl: "./face-snap.component.scss", // Lien vers le fichier de style SCSS du composant
 })
@@ -14,6 +28,7 @@ export class FaceSnapComponent implements OnInit {
 
   snapText!: string; // Variable pour stocker le texte du bouton "Snap" ou "Unsnap"
   isSnapped!: boolean; // Booléen pour vérifier si l'utilisateur a déjà "snappé" cet élément
+  myLargeNumber: number = 1219723.89; // Variable pour stocker un grand nombre de "snaps" (pour tester la gestion des grands nombres)
 
   // Le hook OnInit est déclenché une fois que le composant est initialisé
   ngOnInit(): void {

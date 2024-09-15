@@ -1,13 +1,17 @@
 <div class="face-snap-card" [ngClass]="{ snapped: isSnapped }">
-  <h2>{{ faceSnap.title }}</h2>
+  <h2>{{ faceSnap.title | titlecase }}</h2>
   @if (faceSnap.location) {
   <p>📍 {{ faceSnap.location }}</p>
   } @else {
   <p>🌍 Ajouter une localisation...</p>
   }
   <p>{{ faceSnap.description }}</p>
+  <p>Ce snap a été vu {{ myLargeNumber | number : "1.0-0" }} fois</p>
   <img [src]="faceSnap.imageUrl" alt="Face Snap" />
-  <p>Face Snap, créée le {{ faceSnap.createdDate }}</p>
+  <p>
+    Face Snap, créée le
+    {{ faceSnap.createdDate | date : "d MMMM yyyy à HH:MM" }}
+  </p>
   <p>
     <button (click)="onSnap()">{{ snapText }}</button>
     <span

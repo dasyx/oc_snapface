@@ -8,6 +8,7 @@ import {
   UpperCasePipe,
   DecimalPipe,
 } from "@angular/common";
+import { FaceSnapsService } from "../services/face-snaps.service";
 
 @Component({
   selector: "app-face-snap", // Déclare le sélecteur pour le composant, utilisé dans le template HTML parent
@@ -30,6 +31,9 @@ export class FaceSnapComponent implements OnInit {
   isSnapped!: boolean; // Booléen pour vérifier si l'utilisateur a déjà "snappé" cet élément
   myLargeNumber: number = 1219723.89; // Variable pour stocker un grand nombre de "snaps" (pour tester la gestion des grands nombres)
 
+  // Injection du service FaceSnapsService dans le constructeur du composant
+  constructor(private faceSnapsService: FaceSnapsService) {} // Constructeur du composant FaceSnap
+
   // Le hook OnInit est déclenché une fois que le composant est initialisé
   ngOnInit(): void {
     this.snapText = "Snap Me"; // Initialisation du texte du bouton
@@ -47,19 +51,19 @@ export class FaceSnapComponent implements OnInit {
     }
   }
   unSnap(): void {
-    if (this.isSnapped) {
+    if (this.isSnapped && this.faceSnap.id) {
       // Si l'élément a déjà été "snappé", on décrémente le compteur
-      this.faceSnap.removeSnap(); // Diminue le nombre de "snaps" dans l'objet FaceSnap
+      this.faceSnapsService.snapFaceSnapById(this.faceSnap.id, "unsnap"); // Diminue le nombre de "snaps" dans l'objet FaceSnap
       this.snapText = "Snap Me"; // Restaure le texte initial du bouton
       this.isSnapped = false; // Repasse l'état à "non-snappé" pour permettre un nouveau "snap"
     }
   }
   snap(): void {
-    if (!this.isSnapped) {
-      // Si l'élément n'a pas encore été "snappé", on incrémente le compteur de snaps
-      this.faceSnap.addSnap(); // Augmente le nombre de "snaps" dans l'objet FaceSnap
+    if (!this.isSnapped && this.faceSnap.id) {
+      // Si l'élément n'a pas encore été "snappé" et que l'id est défini
+      this.faceSnapsService.snapFaceSnapById(this.faceSnap.id, "snap"); // Augmente le nombre de "snaps"
       this.snapText = "Unsnap Me"; // Change le texte du bouton pour indiquer que l'utilisateur peut "désnappé"
-      this.isSnapped = true; // Passe l'état à "snappé" pour éviter une nouvelle incrémentation immédiate
+      this.isSnapped = true; // Passe l'état à "snappé"
     }
   }
 

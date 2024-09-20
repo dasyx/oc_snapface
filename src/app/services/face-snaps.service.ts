@@ -51,6 +51,15 @@ export class FaceSnapsService {
     return [...this.faceSnaps];
   }
 
+  getFaceSnapById(faceSnapId: string): FaceSnap {
+    const foundFaceSnap = this.faceSnaps.find(
+      (FaceSnap) => FaceSnap.id === faceSnapId
+    );
+    if (!foundFaceSnap) {
+      throw new Error("FaceSnap not found!");
+    }
+    return foundFaceSnap;
+  }
   // La méthode snapFaceSnapById prend un identifiant en paramètre et incrémente le compteur de "snaps" (likes) pour le FaceSnap correspondant.
   // Elle recherche le FaceSnap dans le tableau 'faceSnaps' en fonction de son identifiant, puis appelle la méthode 'addSnap' sur l'instance de FaceSnap.
   // Cela permet de gérer les interactions (snaps) sur les "snaps" (photos) à partir du service, centralisant la logique de gestion des "snaps".
@@ -59,20 +68,9 @@ export class FaceSnapsService {
 
   // Méthode pour incrémenter le nombre de snaps (likes) d'un FaceSnap via son ID
   snapFaceSnapById(faceSnapId: string, snapType: SnapType): void {
-    // Recherche dans le tableau faceSnaps l'instance dont l'id correspond à l'id passé en paramètre
-    // La méthode find() parcourt le tableau et renvoie le premier élément qui correspond à la condition
-    const foundFaceSnap = this.faceSnaps.find(
-      (faceSnap) => faceSnap.id === faceSnapId // Vérifie si l'id de chaque FaceSnap correspond à l'id fourni
-    );
-
-    // Si aucun FaceSnap n'est trouvé (foundFaceSnap est undefined), on lance une erreur
-    // Cela permet de gérer les cas où l'ID n'existe pas dans le tableau
-    if (!foundFaceSnap) {
-      throw new Error("FaceSnap not found!"); // Renvoie une erreur si l'ID est introuvable
-    }
-
-    // Si un FaceSnap a été trouvé, on appelle la méthode snap() de l'instance pour incrémenter ou décrémenter le nombre de snaps
-    // en fonction du type de snap (snap ou unsnap)
-    foundFaceSnap.snap(snapType);
+    // Récupère le FaceSnap correspondant à l'ID fourni
+    const faceSnap: FaceSnap = this.getFaceSnapById(faceSnapId);
+    // Appelle la méthode 'snap' de l'instance de FaceSnap pour incrémenter le compteur de snaps
+    faceSnap.snap(snapType);
   }
 }
